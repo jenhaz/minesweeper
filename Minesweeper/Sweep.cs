@@ -1,42 +1,10 @@
-﻿using System.Linq;
-
-namespace Minesweeper
+﻿namespace Minesweeper
 {
     public class Sweep
     {
-        public Coordinates GetCoordinates(string input)
-        {
-            var coordinates = input.Split('#').Last();
-            var x = coordinates[0];
-
-            if (!char.IsLetter(x) ||
-                coordinates.Length > 3)
-            {
-                return null;
-            }
-
-            if (coordinates.Length == 2)
-            {
-                x = coordinates[0];
-                var y = (coordinates[1] - '1') + 1;
-
-                return ConvertToCoordinates(x, y);
-            }
-
-            if (coordinates.Length == 3)
-            {
-                x = coordinates[0];
-                var y = int.Parse(coordinates.Substring(1, 2));
-
-                return ConvertToCoordinates(x, y);
-            }
-
-            return null;
-        }
-
         public bool IsMine(Coordinates input, string mine)
         {
-            var mineCoordinates = GetCoordinates(mine);
+            var mineCoordinates = new Coordinates().Get(mine);
 
             return input.X == mineCoordinates.X && input.Y == mineCoordinates.Y;
         }
@@ -46,40 +14,7 @@ namespace Minesweeper
             return input.X == mine.X && input.Y == mine.Y;
         }
 
-        public bool InputIsValid(string input)
-        {
-            var coordinates = input.Split('#').Last();
-
-            if (coordinates.Any(c => !char.IsLetterOrDigit(c)))
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        public bool InputIsWithinRange(string input, int xLimit, int yLimit)
-        {
-            var coordinates = GetCoordinates(input);
-            
-            if (coordinates?.X > xLimit || coordinates?.Y > yLimit)
-            {
-                return false;
-            }
-
-            return true;
-        }
-        
-        private Coordinates ConvertToCoordinates(char xCoordinate, int yCoordinate)
-        {
-            return new Coordinates
-            {
-                X = xCoordinate % 32,
-                Y = yCoordinate
-            };
-        }
-
-        public bool CheckAroundForMine(
+        public bool CheckAreaForMine(
             Coordinates inputCoordinates, 
             Coordinates mineCoordinates,
             int xLimit,
@@ -93,7 +28,9 @@ namespace Minesweeper
             return isMineSomewhere;
         }
 
-        public bool CheckAboveCoordinates(Coordinates inputCoordinates, Coordinates mineCoordinates)
+        public bool CheckAboveCoordinates(
+            Coordinates inputCoordinates, 
+            Coordinates mineCoordinates)
         {
             var y = inputCoordinates.Y;
 
@@ -136,7 +73,9 @@ namespace Minesweeper
             return IsMine(belowCoordinates, mineCoordinates);
         }
 
-        public bool CheckLeftCoordinates(Coordinates inputCoordinates, Coordinates mineCoordinates)
+        public bool CheckLeftCoordinates(
+            Coordinates inputCoordinates, 
+            Coordinates mineCoordinates)
         {
             var x = inputCoordinates.X;
 

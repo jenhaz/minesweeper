@@ -6,9 +6,9 @@ namespace Minesweeper
     class Program
     {
         private static readonly Sweep _sweep = new Sweep();
+        private static readonly Validate _validate = new Validate();
+        private static readonly Coordinates _coordinates = new Coordinates();
         private static readonly List<Coordinates> previousGuesses = new List<Coordinates>();
-
-        private static readonly string mine = "B2";
 
         private static readonly int height = 11;
         private static readonly int width = 11;
@@ -19,6 +19,8 @@ namespace Minesweeper
         private static bool isAlive = true;
         private static bool inputIsValid = true;
 
+        private static readonly Coordinates mine = new Mine().GenerateMine(xLimit, yLimit);
+
         static void Main(string[] args)
         {
             PrintGrid();
@@ -28,18 +30,18 @@ namespace Minesweeper
                 var input = Console.ReadLine();
                 Console.WriteLine("You guessed: " + input);
 
-                inputIsValid = _sweep.InputIsValid(input);
-                inputIsValid = _sweep.InputIsWithinRange(input, xLimit, yLimit);
-                inputIsValid = _sweep.GetCoordinates(input) != null;
+                inputIsValid = IsValid(input);
 
                 while (!inputIsValid)
                 {
                     TryAgain();
+                    input = Console.ReadLine();
+                    inputIsValid = IsValid(input);
                 }
 
                 if (inputIsValid)
                 {
-                    var coords = _sweep.GetCoordinates(input);
+                    var coords = _coordinates.Get(input);
                     var isMine = _sweep.IsMine(coords, mine);
 
                     if (isMine)
@@ -56,12 +58,18 @@ namespace Minesweeper
             }
         }
 
+        static bool IsValid(string input)
+        {
+            return _validate.InputIsValid(input) &&
+            _validate.InputIsWithinRange(input, xLimit, yLimit) &&
+            _coordinates.Get(input) != null;
+        }
+
         static void TryAgain()
         {
             Console.WriteLine("lol no TRY AGAIN");
             Console.WriteLine();
             PrintGrid(previousGuesses, new int[xLimit, yLimit]);
-            Console.ReadLine();
         }
 
         static void LoseAndExit()
@@ -116,8 +124,7 @@ namespace Minesweeper
                 {
                     foreach (var coordinates in allCoordinates)
                     {
-                        var mineCoordinates = _sweep.GetCoordinates(mine);
-                        var output = _sweep.CheckAroundForMine(coordinates, mineCoordinates, xLimit, yLimit) 
+                        var output = _sweep.CheckAreaForMine(coordinates, mine, xLimit, yLimit) 
                             ? 1 
                             : 8;
 

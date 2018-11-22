@@ -4,13 +4,17 @@ namespace Minesweeper.Tests
 {
     public class MineTests
     {
+        private readonly Coordinates _coordinates;
         private readonly Sweep _sweep;
+        private readonly Validate _validate;
         private readonly int xLimit = 11;
         private readonly int yLimit = 12;
 
         public MineTests()
         {
+            _coordinates = new Coordinates();
             _sweep = new Sweep();
+            _validate = new Validate();
         }
 
         [TestCase("Field #A1", 1, 1)]
@@ -22,8 +26,8 @@ namespace Minesweeper.Tests
             // given
 
             // when
-            var coordinates = _sweep.GetCoordinates(input);
-            var isValid = _sweep.InputIsValid(input);
+            var coordinates = _coordinates.Get(input);
+            var isValid = _validate.InputIsValid(input);
 
             // then
             Assert.That(isValid, Is.True);
@@ -37,8 +41,8 @@ namespace Minesweeper.Tests
             // given
 
             // when
-            var inputCoordinates = _sweep.GetCoordinates(input);
-            var isValid = _sweep.InputIsValid(input);
+            var inputCoordinates = _coordinates.Get(input);
+            var isValid = _validate.InputIsValid(input);
             var isMine = _sweep.IsMine(inputCoordinates, mine);
 
             // then
@@ -52,8 +56,8 @@ namespace Minesweeper.Tests
             // given
 
             // when
-            var inputCoordinates = _sweep.GetCoordinates(input);
-            var isValid = _sweep.InputIsValid(input);
+            var inputCoordinates = _coordinates.Get(input);
+            var isValid = _validate.InputIsValid(input);
             var isMine = _sweep.IsMine(inputCoordinates, mine);
 
             // then
@@ -70,7 +74,7 @@ namespace Minesweeper.Tests
             // given
 
             // when
-            var coordinates = _sweep.GetCoordinates(input);
+            var coordinates = _coordinates.Get(input);
 
             // then
             Assert.That(coordinates, Is.Null);
@@ -84,7 +88,7 @@ namespace Minesweeper.Tests
             // given
 
             // when
-            var isValid = _sweep.InputIsWithinRange(input, xLimit, yLimit);
+            var isValid = _validate.InputIsWithinRange(input, xLimit, yLimit);
 
             // then
             Assert.That(isValid, Is.False);
@@ -98,7 +102,7 @@ namespace Minesweeper.Tests
             // given
 
             // when
-            var isValid = _sweep.InputIsWithinRange(input, xLimit, yLimit);
+            var isValid = _validate.InputIsWithinRange(input, xLimit, yLimit);
 
             // then
             Assert.That(isValid, Is.True);
@@ -112,7 +116,7 @@ namespace Minesweeper.Tests
             // given
 
             // when
-            var isValid = _sweep.InputIsValid(input);
+            var isValid = _validate.InputIsValid(input);
 
             // then
             Assert.That(isValid, Is.False);
@@ -127,7 +131,7 @@ namespace Minesweeper.Tests
             // given
 
             // when
-            var isValid = _sweep.InputIsValid(input);
+            var isValid = _validate.InputIsValid(input);
 
             // then
             Assert.That(isValid, Is.True);
