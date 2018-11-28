@@ -12,14 +12,13 @@ namespace Minesweeper
 
         private static readonly int height = 11;
         private static readonly int width = 11;
-
-        private static readonly int xLimit = width;
-        private static readonly int yLimit = height + 1;
+        
+        private static readonly Limits limits = new Limits { X = width, Y = height + 1};
 
         private static bool isAlive = true;
         private static bool inputIsValid = true;
 
-        private static readonly Coordinates mine = new Mine().GenerateMine(xLimit, yLimit);
+        private static readonly Coordinates mine = new Mine().GenerateMine(limits.X, limits.Y);
 
         static void Main(string[] args)
         {
@@ -52,43 +51,9 @@ namespace Minesweeper
                     else
                     {
                         previousGuesses.Add(coords);
-                        PrintGrid(previousGuesses, new int[xLimit, yLimit]);
+                        PrintGrid(previousGuesses, new int[limits.X, limits.Y]);
                     }
                 }
-            }
-        }
-
-        static bool IsValid(string input)
-        {
-            return _validate.InputIsValid(input) &&
-            _validate.InputIsWithinRange(input, xLimit, yLimit) &&
-            _coordinates.Get(input) != null;
-        }
-
-        static void TryAgain()
-        {
-            Console.WriteLine("lol no TRY AGAIN");
-            Console.WriteLine();
-            PrintGrid(previousGuesses, new int[xLimit, yLimit]);
-        }
-
-        static void LoseAndExit()
-        {
-            Console.WriteLine("BOOOOOOOOOOOOOOOOOOOOOOOM!!!!");
-            Console.WriteLine("Sorry, you dead.");
-            var exitMessage = "Type L8RZ to exit.";
-            Console.WriteLine(exitMessage);
-
-            var response = Console.ReadLine();
-            while (response != "L8RZ")
-            {
-                Console.WriteLine(exitMessage);
-                response = Console.ReadLine();
-            }
-
-            if (response == "L8RZ")
-            {
-                Environment.Exit(0);
             }
         }
 
@@ -124,11 +89,18 @@ namespace Minesweeper
                 {
                     foreach (var coordinates in allCoordinates)
                     {
-                        var output = _sweep.CheckAreaForMine(coordinates, mine, xLimit, yLimit) 
+                        var output = _sweep.CheckAreaForMine(coordinates, mine, limits) 
                             ? 1 
                             : 8;
 
                         grid[coordinates.X, coordinates.Y] = output;
+
+                        var areaAround = _sweep.GetCoordinatesAroundInput(coordinates, limits);
+
+                        foreach (var area in areaAround)
+                        {
+                            grid[area.X, area.Y] = GetGridPlaceholder(area);
+                        }
                     }
                 }
 
@@ -142,6 +114,10 @@ namespace Minesweeper
                     {
                         Console.Write("x ");
                     }
+                    else if (grid[column, row] == 9)
+                    {
+                        Console.Write(". ");
+                    }
                     else
                     {
                         Console.Write(". ");
@@ -151,6 +127,51 @@ namespace Minesweeper
 
             Console.WriteLine();
             Console.WriteLine("What's your guess?");
+        }
+
+        private static bool IsValid(string input)
+        {
+            return _validate.InputIsValid(input) &&
+                   _validate.InputIsWithinRange(input, limits) &&
+                   _coordinates.Get(input) != null;
+        }
+
+        private static void TryAgain()
+        {
+            Console.WriteLine("lol no TRY AGAIN");
+            Console.WriteLine();
+            PrintGrid(previousGuesses, new int[limits.X, limits.Y]);
+        }
+
+        private static void LoseAndExit()
+        {
+            Console.WriteLine("*****************************");
+            Console.WriteLine("BOOOOOOOOOOOOOOOOOOOOOOOM!!!!");
+            Console.WriteLine("*****************************");
+            Console.WriteLine("Sorry, you dead.");
+            Console.WriteLine("Say goodbye to exit.");
+            Console.ReadLine();
+            Environment.Exit(0);
+        }
+
+        private static int GetGridPlaceholder(Coordinates coordinates)
+        {
+            int output;
+
+            if (_sweep.IsMine(coordinates, mine))
+            {
+                output = 9;
+            }
+            else if (_sweep.CheckAreaForMine(coordinates, mine, limits))
+            {
+                output = 1;
+            }
+            else
+            {
+                output = 8;
+            }
+
+            return output;
         }
     }
 }

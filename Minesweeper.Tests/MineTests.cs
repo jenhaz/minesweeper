@@ -7,12 +7,12 @@ namespace Minesweeper.Tests
         private readonly Coordinates _coordinates;
         private readonly Sweep _sweep;
         private readonly Validate _validate;
-        private readonly int xLimit = 11;
-        private readonly int yLimit = 12;
+        private readonly Limits _limits;
 
         public MineTests()
         {
             _coordinates = new Coordinates();
+            _limits = new Limits { X = 11, Y = 12 };
             _sweep = new Sweep();
             _validate = new Validate();
         }
@@ -88,7 +88,7 @@ namespace Minesweeper.Tests
             // given
 
             // when
-            var isValid = _validate.InputIsWithinRange(input, xLimit, yLimit);
+            var isValid = _validate.InputIsWithinRange(input, _limits);
 
             // then
             Assert.That(isValid, Is.False);
@@ -102,7 +102,7 @@ namespace Minesweeper.Tests
             // given
 
             // when
-            var isValid = _validate.InputIsWithinRange(input, xLimit, yLimit);
+            var isValid = _validate.InputIsWithinRange(input, _limits);
 
             // then
             Assert.That(isValid, Is.True);
@@ -203,7 +203,7 @@ namespace Minesweeper.Tests
             };
 
             // when
-            var mineBelow = _sweep.CheckBelowCoordinates(inputCoordinates, mineCoordinates, yLimit);
+            var mineBelow = _sweep.CheckBelowCoordinates(inputCoordinates, mineCoordinates, _limits.Y);
 
             // then
             Assert.That(mineBelow, Is.True);
@@ -227,7 +227,7 @@ namespace Minesweeper.Tests
             };
 
             // when
-            var mineBelow = _sweep.CheckBelowCoordinates(inputCoordinates, mineCoordinates, yLimit);
+            var mineBelow = _sweep.CheckBelowCoordinates(inputCoordinates, mineCoordinates, _limits.Y);
 
             // then
             Assert.That(mineBelow, Is.False);
@@ -299,7 +299,7 @@ namespace Minesweeper.Tests
             };
 
             // when
-            var mineRight = _sweep.CheckRightCoordinates(inputCoordinates, mineCoordinates, yLimit);
+            var mineRight = _sweep.CheckRightCoordinates(inputCoordinates, mineCoordinates, _limits.X);
 
             // then
             Assert.That(mineRight, Is.True);
@@ -323,7 +323,7 @@ namespace Minesweeper.Tests
             };
 
             // when
-            var mineRight = _sweep.CheckRightCoordinates(inputCoordinates, mineCoordinates, xLimit);
+            var mineRight = _sweep.CheckRightCoordinates(inputCoordinates, mineCoordinates, _limits.X);
 
             // then
             Assert.That(mineRight, Is.False);

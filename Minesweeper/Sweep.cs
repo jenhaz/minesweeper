@@ -1,4 +1,6 @@
-﻿namespace Minesweeper
+﻿using System.Collections.Generic;
+
+namespace Minesweeper
 {
     public class Sweep
     {
@@ -13,17 +15,52 @@
         {
             return input.X == mine.X && input.Y == mine.Y;
         }
-
-        public bool CheckAreaForMine(
-            Coordinates inputCoordinates, 
-            Coordinates mineCoordinates,
-            int xLimit,
-            int yLimit)
+        
+        public List<Coordinates> GetCoordinatesAroundInput(
+            Coordinates input,
+            Limits limits)
         {
-            var isMineSomewhere = CheckAboveCoordinates(inputCoordinates, mineCoordinates) || 
-                              CheckBelowCoordinates(inputCoordinates, mineCoordinates, yLimit) || 
-                              CheckLeftCoordinates(inputCoordinates, mineCoordinates) || 
-                              CheckRightCoordinates(inputCoordinates, mineCoordinates, xLimit);
+            var result = new List<Coordinates>();
+
+            var y = input.Y;
+            var x = input.X;
+
+            result.Add(new Coordinates
+            {
+                X = x,
+                Y = y - 1 != 0 ? y - 1 : 0
+            });
+
+            result.Add(new Coordinates
+            {
+                X = x,
+                Y = y + 1 != limits.Y ? y + 1 : y
+            });
+
+            result.Add(new Coordinates
+            {
+                X = x - 1 != 0 ? x - 1 : 0,
+                Y = y
+            });
+
+            result.Add(new Coordinates
+            {
+                X = x + 1 != limits.X ? x + 1 : x,
+                Y = y
+            });
+
+            return result;
+        }
+        
+        public bool CheckAreaForMine(
+            Coordinates inputCoordinates,
+            Coordinates mineCoordinates,
+            Limits limits)
+        {
+            var isMineSomewhere = CheckAboveCoordinates(inputCoordinates, mineCoordinates) ||
+                                  CheckBelowCoordinates(inputCoordinates, mineCoordinates, limits.Y) ||
+                                  CheckLeftCoordinates(inputCoordinates, mineCoordinates) ||
+                                  CheckRightCoordinates(inputCoordinates, mineCoordinates, limits.X);
 
             return isMineSomewhere;
         }

@@ -16,11 +16,11 @@ namespace Minesweeper
             return true;
         }
 
-        public bool InputIsWithinRange(string input, int xLimit, int yLimit)
+        public bool InputIsWithinRange(string input, Limits limits)
         {
             var coordinates = new Coordinates().Get(input);
 
-            if (coordinates?.X > xLimit || coordinates?.Y > yLimit)
+            if (coordinates?.X > limits.X || coordinates?.Y > limits.Y)
             {
                 return false;
             }
