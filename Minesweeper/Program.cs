@@ -20,7 +20,7 @@ namespace Minesweeper
 
         static Program()
         {
-            Sweep = new Sweep();
+            Sweep = new Sweep(new CoordinatesFactory());
             Validate = new Validate();
             Coordinates = new Coordinates();
             PreviousGuesses = new List<Coordinates>();

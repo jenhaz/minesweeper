@@ -43,11 +43,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CoordinatesAround\AboveCoordinates.cs" />
+    <Compile Include="CoordinatesAround\BelowCoordinates.cs" />
     <Compile Include="Coordinates.cs" />
+    <Compile Include="CoordinatesFactory.cs" />
+    <Compile Include="CoordinatesAround\ICoordinatesAround.cs" />
+    <Compile Include="ICoordinatesFactory.cs" />
+    <Compile Include="CoordinatesAround\LeftCoordinates.cs" />
     <Compile Include="Limits.cs" />
     <Compile Include="Mine.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="CoordinatesAround\RightCoordinates.cs" />
     <Compile Include="Sweep.cs" />
     <Compile Include="Validate.cs" />
   </ItemGroup>
