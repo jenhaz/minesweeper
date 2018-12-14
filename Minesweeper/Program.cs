@@ -5,53 +5,69 @@ namespace Minesweeper
 {
     class Program
     {
-        private static readonly Sweep _sweep = new Sweep();
-        private static readonly Validate _validate = new Validate();
-        private static readonly Coordinates _coordinates = new Coordinates();
-        private static readonly List<Coordinates> previousGuesses = new List<Coordinates>();
+        private static readonly Sweep Sweep;
+        private static readonly Validate Validate;
+        private static readonly Coordinates Coordinates;
+        private static readonly List<Coordinates> PreviousGuesses;
+        private static readonly int Height;
+        private static readonly int Width;
+        private static readonly Limits Limits;
 
-        private static readonly int height = 11;
-        private static readonly int width = 11;
+        private static bool _isAlive;
+        private static bool _inputIsValid;
+
+        private static readonly Coordinates Mine;
+
+        static Program()
+        {
+            Sweep = new Sweep();
+            Validate = new Validate();
+            Coordinates = new Coordinates();
+            PreviousGuesses = new List<Coordinates>();
+
+            Height = 11;
+            Width = 11;
+
+            Limits = new Limits { X = Width, Y = Height + 1 };
+
+            _isAlive = true;
+            _inputIsValid = true;
+
+            Mine = new Mine().GenerateMine(Limits.X, Limits.Y);
+        }
         
-        private static readonly Limits limits = new Limits { X = width, Y = height + 1};
-
-        private static bool isAlive = true;
-        private static bool inputIsValid = true;
-
-        private static readonly Coordinates mine = new Mine().GenerateMine(limits.X, limits.Y);
-
         static void Main(string[] args)
         {
             PrintGrid();
 
-            while (isAlive)
+            while (_isAlive)
             {
                 var input = Console.ReadLine();
                 Console.WriteLine("You guessed: " + input);
 
-                inputIsValid = IsValid(input);
+                _inputIsValid = IsValid(input);
 
-                while (!inputIsValid)
+                while (!_inputIsValid)
                 {
                     TryAgain();
                     input = Console.ReadLine();
-                    inputIsValid = IsValid(input);
+                    _inputIsValid = IsValid(input);
                 }
 
-                if (inputIsValid)
+                if (_inputIsValid)
                 {
-                    var coords = _coordinates.Get(input);
-                    var isMine = _sweep.IsMine(coords, mine);
+                    var coords = Coordinates.Get(input);
+                    var isMine = Sweep.IsMine(coords, Mine);
 
                     if (isMine)
                     {
-                        isAlive = false;
+                        _isAlive = false;
                         LoseAndExit();
                     }
                     else
                     {
-                        previousGuesses.Add(coords);
-                        PrintGrid(previousGuesses, new int[limits.X, limits.Y]);
+                        PreviousGuesses.Add(coords);
+                        PrintGrid(PreviousGuesses, new int[Limits.X, Limits.Y]);
                     }
                 }
             }
@@ -61,12 +77,12 @@ namespace Minesweeper
         {
             Console.Write("x A B C D E F G H I J");
 
-            for (int row = 1; row < width; row++)
+            for (int row = 1; row < Width; row++)
             {
                 Console.WriteLine();
                 Console.Write(row + " ");
 
-                for (int column = 1; column < height; column++)
+                for (int column = 1; column < Height; column++)
                 {
                     Console.Write(". ");
                 }
@@ -80,7 +96,7 @@ namespace Minesweeper
         {
             Console.Write("x A B C D E F G H I J");
 
-            for (var row = 1; row < height; row++)
+            for (var row = 1; row < Height; row++)
             {
                 Console.WriteLine();
                 Console.Write(row + " ");
@@ -89,13 +105,13 @@ namespace Minesweeper
                 {
                     foreach (var coordinates in allCoordinates)
                     {
-                        var output = _sweep.CheckAreaForMine(coordinates, mine, limits) 
-                            ? 1 
+                        var output = Sweep.CheckAreaForMine(coordinates, Mine, Limits)
+                            ? 1
                             : 8;
 
                         grid[coordinates.X, coordinates.Y] = output;
 
-                        var areaAround = _sweep.GetCoordinatesAroundInput(coordinates, limits);
+                        var areaAround = Sweep.GetCoordinatesAroundInput(coordinates, Limits);
 
                         foreach (var area in areaAround)
                         {
@@ -104,7 +120,7 @@ namespace Minesweeper
                     }
                 }
 
-                for (var column = 1; column < width; column++)
+                for (var column = 1; column < Width; column++)
                 {
                     if (grid[column, row] == 1)
                     {
@@ -131,16 +147,16 @@ namespace Minesweeper
 
         private static bool IsValid(string input)
         {
-            return _validate.InputIsValid(input) &&
-                   _validate.InputIsWithinRange(input, limits) &&
-                   _coordinates.Get(input) != null;
+            return Validate.InputIsValid(input) &&
+                   Validate.InputIsWithinRange(input, Limits) &&
+                   Coordinates.Get(input) != null;
         }
 
         private static void TryAgain()
         {
             Console.WriteLine("lol no TRY AGAIN");
             Console.WriteLine();
-            PrintGrid(previousGuesses, new int[limits.X, limits.Y]);
+            PrintGrid(PreviousGuesses, new int[Limits.X, Limits.Y]);
         }
 
         private static void LoseAndExit()
@@ -158,11 +174,11 @@ namespace Minesweeper
         {
             int output;
 
-            if (_sweep.IsMine(coordinates, mine))
+            if (Sweep.IsMine(coordinates, Mine))
             {
                 output = 9;
             }
-            else if (_sweep.CheckAreaForMine(coordinates, mine, limits))
+            else if (Sweep.CheckAreaForMine(coordinates, Mine, Limits))
             {
                 output = 1;
             }

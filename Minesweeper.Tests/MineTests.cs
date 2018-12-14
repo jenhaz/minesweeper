@@ -83,6 +83,7 @@ namespace Minesweeper.Tests
         [TestCase("#v2")]
         [TestCase("#a22")]
         [TestCase("#x12")]
+        [TestCase("#c0")]
         public void OutsideOfBounds(string input)
         {
             // given
