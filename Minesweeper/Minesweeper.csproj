@@ -44,8 +44,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CoordinatesAround\AboveCoordinates.cs" />
+    <Compile Include="CoordinatesAround\AboveLeftCoordinates.cs" />
+    <Compile Include="CoordinatesAround\AboveRightCoordinates.cs" />
     <Compile Include="CoordinatesAround\BelowCoordinates.cs" />
     <Compile Include="Coordinates.cs" />
+    <Compile Include="CoordinatesAround\BelowLeftCoordinates.cs" />
     <Compile Include="CoordinatesFactory.cs" />
     <Compile Include="CoordinatesAround\ICoordinatesAround.cs" />
     <Compile Include="ICoordinatesFactory.cs" />

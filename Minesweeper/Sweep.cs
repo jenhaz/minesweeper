@@ -24,49 +24,22 @@ namespace Minesweeper
             return input.X == mine.X && input.Y == mine.Y;
         }
         
-        public List<Coordinates> GetCoordinatesAroundInput(
+        public IEnumerable<Coordinates> GetCoordinatesAroundInput(
             Coordinates input,
             Limits limits)
         {
-            var result = new List<Coordinates>();
-
-            var y = input.Y;
-            var x = input.X;
-
-            result.Add(new Coordinates
-            {
-                X = x,
-                Y = y - 1 != 0 ? y - 1 : 0
-            });
-
-            result.Add(new Coordinates
-            {
-                X = x,
-                Y = y + 1 != limits.Y ? y + 1 : y
-            });
-
-            result.Add(new Coordinates
-            {
-                X = x - 1 != 0 ? x - 1 : 0,
-                Y = y
-            });
-
-            result.Add(new Coordinates
-            {
-                X = x + 1 != limits.X ? x + 1 : x,
-                Y = y
-            });
-
-            return result;
+            return _coordinatesFactory.GetCoordinatesAround(limits)
+                .Select(direction => direction.Get(input))
+                .ToList();
         }
-        
+
         public bool CheckAreaForMine(
-            Coordinates inputCoordinates,
-            Coordinates mineCoordinates,
+            Coordinates input,
+            Coordinates mine,
             Limits limits)
         {
             return _coordinatesFactory.GetCoordinatesAround(limits)
-                .Select(direction => direction.Check(inputCoordinates, mineCoordinates))
+                .Select(direction => direction.Check(input, mine))
                 .Any(isMine => isMine);
         }
     }

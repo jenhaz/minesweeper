@@ -2,6 +2,7 @@
 {
     public interface ICoordinatesAround
     {
-        bool Check(Coordinates inputCoordinates, Coordinates mineCoordinates);
+        bool Check(Coordinates input, Coordinates mine);
+        Coordinates Get(Coordinates input);
     }
 }

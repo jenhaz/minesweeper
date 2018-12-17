@@ -22,6 +22,15 @@
             return IsMine(aboveCoordinates, mineCoordinates);
         }
 
+        public Coordinates Get(Coordinates input)
+        {
+            return new Coordinates
+            {
+                X = input.X,
+                Y = input.Y - 1 != 0 ? input.Y - 1 : 0
+            };
+        }
+
         private bool IsMine(Coordinates input, Coordinates mine)
         {
             return input.X == mine.X && input.Y == mine.Y;

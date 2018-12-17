@@ -9,9 +9,9 @@
             _limits = limits;
         }
 
-        public bool Check(Coordinates inputCoordinates, Coordinates mineCoordinates)
+        public bool Check(Coordinates input, Coordinates mine)
         {
-            var x = inputCoordinates.X;
+            var x = input.X;
 
             var columnRight = x + 1 != _limits.X ? x + 1 : x;
 
@@ -23,10 +23,19 @@
             var rightCoordinates = new Coordinates
             {
                 X = columnRight,
-                Y = inputCoordinates.Y
+                Y = input.Y
             };
 
-            return IsMine(rightCoordinates, mineCoordinates);
+            return IsMine(rightCoordinates, mine);
+        }
+
+        public Coordinates Get(Coordinates input)
+        {
+            return new Coordinates
+            {
+                X = input.X + 1 != _limits.X ? input.X + 1 : input.X,
+                Y = input.Y
+            };
         }
 
         private bool IsMine(Coordinates input, Coordinates mine)
