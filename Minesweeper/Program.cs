@@ -16,7 +16,7 @@ namespace Minesweeper
         private static bool _isAlive;
         private static bool _inputIsValid;
 
-        private static readonly Coordinates Mine;
+        private static readonly IEnumerable<Coordinates> Mines;
 
         static Program()
         {
@@ -33,7 +33,8 @@ namespace Minesweeper
             _isAlive = true;
             _inputIsValid = true;
 
-            Mine = new Mine().GenerateMine(Limits.X, Limits.Y);
+            var numberOfMines = 2;
+            Mines = new Mine().GenerateMines(Limits, numberOfMines);
         }
         
         static void Main(string[] args)
@@ -57,7 +58,7 @@ namespace Minesweeper
                 if (_inputIsValid)
                 {
                     var coords = Coordinates.Get(input);
-                    var isMine = Sweep.IsMine(coords, Mine);
+                    var isMine = Sweep.IsMine(coords, Mines);
 
                     if (isMine)
                     {
@@ -105,7 +106,7 @@ namespace Minesweeper
                 {
                     foreach (var coordinates in allCoordinates)
                     {
-                        var output = Sweep.CheckAreaForMine(coordinates, Mine, Limits)
+                        var output = Sweep.CheckAreaForMine(coordinates, Mines, Limits)
                             ? 1
                             : 8;
 
@@ -174,11 +175,11 @@ namespace Minesweeper
         {
             int output;
 
-            if (Sweep.IsMine(coordinates, Mine))
+            if (Sweep.IsMine(coordinates, Mines))
             {
                 output = 9;
             }
-            else if (Sweep.CheckAreaForMine(coordinates, Mine, Limits))
+            else if (Sweep.CheckAreaForMine(coordinates, Mines, Limits))
             {
                 output = 1;
             }

@@ -12,18 +12,11 @@ namespace Minesweeper
             _coordinatesFactory = coordinatesFactory;
         }
 
-        public bool IsMine(Coordinates input, string mine)
+        public bool IsMine(Coordinates input, IEnumerable<Coordinates> mines)
         {
-            var mineCoordinates = new Coordinates().Get(mine);
-
-            return input.X == mineCoordinates.X && input.Y == mineCoordinates.Y;
+            return mines.Any(mine => input.X == mine.X && input.Y == mine.Y);
         }
 
-        public bool IsMine(Coordinates input, Coordinates mine)
-        {
-            return input.X == mine.X && input.Y == mine.Y;
-        }
-        
         public IEnumerable<Coordinates> GetCoordinatesAroundInput(
             Coordinates input,
             Limits limits)
@@ -35,12 +28,13 @@ namespace Minesweeper
 
         public bool CheckAreaForMine(
             Coordinates input,
-            Coordinates mine,
+            IEnumerable<Coordinates> mines,
             Limits limits)
         {
-            return _coordinatesFactory.GetCoordinatesAround(limits)
+            return mines.Any(mine => 
+                _coordinatesFactory.GetCoordinatesAround(limits)
                 .Select(direction => direction.Check(input, mine))
-                .Any(isMine => isMine);
+                .Any(isMine => isMine));
         }
     }
 }

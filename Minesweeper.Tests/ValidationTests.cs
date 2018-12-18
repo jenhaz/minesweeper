@@ -1,4 +1,5 @@
-﻿using NSubstitute;
+﻿using System.Collections.Generic;
+using NSubstitute;
 using NUnit.Framework;
 
 namespace Minesweeper.Tests
@@ -40,30 +41,38 @@ namespace Minesweeper.Tests
             Assert.That(coordinates.Y, Is.EqualTo(expectedY));
         }
 
-        [TestCase("Field #A1", "B2")]
-        public void InputDoesNotMatchMineCoordinates(string input, string mine)
+        [TestCase("Field #A1")]
+        public void InputDoesNotMatchMineCoordinates(string input)
         {
             // given
+            var mines = new List<Coordinates>
+            {
+                new Coordinates {X = 2, Y = 2}
+            };
 
             // when
             var inputCoordinates = _coordinates.Get(input);
             var isValid = _validate.InputIsValid(input);
-            var isMine = _sweep.IsMine(inputCoordinates, mine);
+            var isMine = _sweep.IsMine(inputCoordinates, mines);
 
             // then
             Assert.That(isValid, Is.True);
             Assert.That(isMine, Is.False);
         }
 
-        [TestCase("Field #B2", "B2")]
-        public void InputMatchesMineCoordinates(string input, string mine)
+        [TestCase("Field #B2")]
+        public void InputMatchesMineCoordinates(string input)
         {
             // given
+            var mines = new List<Coordinates>
+            {
+                new Coordinates {X = 2, Y = 2}
+            };
 
             // when
             var inputCoordinates = _coordinates.Get(input);
             var isValid = _validate.InputIsValid(input);
-            var isMine = _sweep.IsMine(inputCoordinates, mine);
+            var isMine = _sweep.IsMine(inputCoordinates, mines);
 
             // then
             Assert.That(isValid, Is.True);

@@ -31,10 +31,9 @@ namespace Minesweeper.Tests
                 X = 3,
                 Y = inputY
             };
-            var mineCoordinates = new Coordinates
+            var mineCoordinates = new List<Coordinates>
             {
-                X = 3,
-                Y = mineY
+                new Coordinates {X = 3, Y = mineY}
             };
 
             // when
@@ -56,10 +55,9 @@ namespace Minesweeper.Tests
                 X = 3,
                 Y = inputY
             };
-            var mineCoordinates = new Coordinates
+            var mineCoordinates = new List<Coordinates>
             {
-                X = 3,
-                Y = mineY
+                new Coordinates {X = 3, Y = mineY}
             };
 
             // when
@@ -81,10 +79,9 @@ namespace Minesweeper.Tests
                 X = 3,
                 Y = inputY
             };
-            var mineCoordinates = new Coordinates
+            var mineCoordinates = new List<Coordinates>
             {
-                X = 3,
-                Y = mineY
+                new Coordinates {X = 3, Y = mineY}
             };
 
             // when
@@ -106,10 +103,9 @@ namespace Minesweeper.Tests
                 X = 3,
                 Y = inputY
             };
-            var mineCoordinates = new Coordinates
+            var mineCoordinates = new List<Coordinates>
             {
-                X = 3,
-                Y = mineY
+                new Coordinates { X = 3, Y = mineY }
             };
 
             // when
@@ -131,10 +127,9 @@ namespace Minesweeper.Tests
                 X = inputX,
                 Y = 3
             };
-            var mineCoordinates = new Coordinates
+            var mineCoordinates = new List<Coordinates>
             {
-                X = mineX,
-                Y = 3
+                new Coordinates { X = mineX, Y = 3 }
             };
 
             // when
@@ -156,10 +151,9 @@ namespace Minesweeper.Tests
                 X = inputX,
                 Y = 3
             };
-            var mineCoordinates = new Coordinates
+            var mineCoordinates = new List<Coordinates>
             {
-                X = mineX,
-                Y = 3
+                new Coordinates { X = mineX, Y = 3 }
             };
 
             // when
@@ -181,10 +175,9 @@ namespace Minesweeper.Tests
                 X = inputX,
                 Y = 3
             };
-            var mineCoordinates = new Coordinates
+            var mineCoordinates = new List<Coordinates>
             {
-                X = mineX,
-                Y = 3
+                new Coordinates { X = mineX, Y = 3 }
             };
 
             // when
@@ -206,10 +199,9 @@ namespace Minesweeper.Tests
                 X = inputX,
                 Y = 3
             };
-            var mineCoordinates = new Coordinates
+            var mineCoordinates = new List<Coordinates>
             {
-                X = mineX,
-                Y = 3
+                new Coordinates { X = mineX, Y = 3 }
             };
 
             // when
@@ -229,10 +221,9 @@ namespace Minesweeper.Tests
                 X = 3,
                 Y = 3
             };
-            var mineCoordinates = new Coordinates
+            var mineCoordinates = new List<Coordinates>
             {
-                X = 4,
-                Y = 2
+                new Coordinates {X = 4, Y = 2}
             };
 
             // when
@@ -252,10 +243,9 @@ namespace Minesweeper.Tests
                 X = 3,
                 Y = 3
             };
-            var mineCoordinates = new Coordinates
+            var mineCoordinates = new List<Coordinates>
             {
-                X = 3,
-                Y = 2
+                new Coordinates {X = 3, Y = 2}
             };
 
             // when
@@ -275,10 +265,9 @@ namespace Minesweeper.Tests
                 X = 3,
                 Y = 3
             };
-            var mineCoordinates = new Coordinates
+            var mineCoordinates = new List<Coordinates>
             {
-                X = 2,
-                Y = 2
+                new Coordinates {X = 2, Y = 2}
             };
 
             // when
@@ -298,10 +287,9 @@ namespace Minesweeper.Tests
                 X = 3,
                 Y = 3
             };
-            var mineCoordinates = new Coordinates
+            var mineCoordinates = new List<Coordinates>
             {
-                X = 3,
-                Y = 2
+                new Coordinates {X = 3, Y = 2}
             };
 
             // when
@@ -321,10 +309,9 @@ namespace Minesweeper.Tests
                 X = 3,
                 Y = 3
             };
-            var mineCoordinates = new Coordinates
+            var mineCoordinates = new List<Coordinates>
             {
-                X = 2,
-                Y = 4
+                new Coordinates {X = 2, Y = 4}
             };
 
             // when
@@ -344,10 +331,9 @@ namespace Minesweeper.Tests
                 X = 3,
                 Y = 3
             };
-            var mineCoordinates = new Coordinates
+            var mineCoordinates = new List<Coordinates>
             {
-                X = 3,
-                Y = 4
+                new Coordinates {X = 3, Y = 4}
             };
 
             // when
@@ -367,10 +353,9 @@ namespace Minesweeper.Tests
                 X = 3,
                 Y = 3
             };
-            var mineCoordinates = new Coordinates
+            var mineCoordinates = new List<Coordinates>
             {
-                X = 4,
-                Y = 4
+                new Coordinates {X = 4, Y = 4}
             };
 
             // when
@@ -390,10 +375,9 @@ namespace Minesweeper.Tests
                 X = 3,
                 Y = 3
             };
-            var mineCoordinates = new Coordinates
+            var mineCoordinates = new List<Coordinates>
             {
-                X = 3,
-                Y = 4
+                new Coordinates {X = 3, Y = 4}
             };
 
             // when
