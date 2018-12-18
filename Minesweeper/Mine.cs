@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Minesweeper
 {
@@ -11,7 +12,16 @@ namespace Minesweeper
 
             for (var i = 1; i <= numberOfMines; i++)
             {
-                var mine = GenerateMine(limits);
+                Coordinates mine = null;
+                while (mine == null)
+                {
+                    var randomMine = GenerateMine(limits);
+                    if (!mines.Any(x => x.X == randomMine.X && x.Y == randomMine.Y))
+                    {
+                        mine = randomMine;
+                    }
+                }
+
                 mines.Add(mine);
             }
 
