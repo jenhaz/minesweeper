@@ -28,12 +28,12 @@ namespace Minesweeper
             Height = 11;
             Width = 11;
 
-            Limits = new Limits { X = Width, Y = Height + 1 };
+            Limits = new Limits { X = Width, Y = Height };
 
             _isAlive = true;
             _inputIsValid = true;
 
-            var numberOfMines = 2;
+            const int numberOfMines = 2;
             Mines = new Mine().GenerateMines(Limits, numberOfMines);
         }
         
@@ -78,12 +78,12 @@ namespace Minesweeper
         {
             Console.Write("x A B C D E F G H I J");
 
-            for (int row = 1; row < Width; row++)
+            for (var row = 1; row < Width; row++)
             {
                 Console.WriteLine();
                 Console.Write(row + " ");
 
-                for (int column = 1; column < Height; column++)
+                for (var column = 1; column < Height; column++)
                 {
                     Console.Write(". ");
                 }
@@ -93,7 +93,7 @@ namespace Minesweeper
             Console.WriteLine("What's your guess?");
         }
 
-        static void PrintGrid(List<Coordinates> allCoordinates, int[,] grid)
+        static void PrintGrid(IReadOnlyCollection<Coordinates> allCoordinates, int[,] grid)
         {
             Console.Write("x A B C D E F G H I J");
 
@@ -148,14 +148,15 @@ namespace Minesweeper
 
         private static bool IsValid(string input)
         {
-            return Validate.InputIsValid(input) &&
+            return !string.IsNullOrEmpty(input) &&
+                   Validate.InputIsValid(input) &&
                    Validate.InputIsWithinRange(input, Limits) &&
                    Coordinates.Get(input) != null;
         }
 
         private static void TryAgain()
         {
-            Console.WriteLine("lol no TRY AGAIN");
+            Console.WriteLine("Invalid input - please try again!");
             Console.WriteLine();
             PrintGrid(PreviousGuesses, new int[Limits.X, Limits.Y]);
         }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using NSubstitute;
 using NUnit.Framework;
 
@@ -150,6 +151,29 @@ namespace Minesweeper.Tests
 
             // then
             Assert.That(isValid, Is.True);
+        }
+
+        [TestCase(2, 2)]
+        [TestCase(4, 4)]
+        [TestCase(6, 3)]
+        [TestCase(8, 10)]
+        [TestCase(32, 34)]
+        [TestCase(2, 42)]
+        public void GenerateMinesWithinLimits(int xLimit, int yLimit)
+        {
+            // given
+            var limits = new Limits
+            {
+                X = xLimit,
+                Y = yLimit
+            };
+
+            // when
+            var mines = new Mine().GenerateMines(limits, 1);
+
+            // then
+            Assert.That(mines.First().X, Is.Not.EqualTo(limits.X));
+            Assert.That(mines.First().Y, Is.Not.EqualTo(limits.X));
         }
     }
 }

@@ -5,18 +5,6 @@ namespace Minesweeper
 {
     public class Mine
     {
-        public Coordinates GenerateMine(Limits limits)
-        {
-            var x = new Random().Next(1, limits.X);
-            var y = new Random().Next(1, limits.Y);
-
-            return new Coordinates
-            {
-                X = x,
-                Y = y
-            };
-        }
-
         public IEnumerable<Coordinates> GenerateMines(Limits limits, int numberOfMines)
         {
             var mines = new List<Coordinates>();
@@ -28,6 +16,17 @@ namespace Minesweeper
             }
 
             return mines;
+        }
+
+        private static Coordinates GenerateMine(Limits limits)
+        {
+            var random = new Random();
+
+            return new Coordinates
+            {
+                X = random.Next(1, limits.X - 1),
+                Y = random.Next(1, limits.Y - 1)
+            };
         }
     }
 }

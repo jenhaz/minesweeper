@@ -22,8 +22,8 @@ namespace Minesweeper
 
             if (coordinates?.X <= 0 || 
                 coordinates?.Y <= 0 || 
-                coordinates?.X > limits.X || 
-                coordinates?.Y > limits.Y)
+                coordinates?.X >= limits.X || 
+                coordinates?.Y >= limits.Y)
             {
                 return false;
             }
