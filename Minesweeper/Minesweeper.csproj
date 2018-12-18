@@ -49,6 +49,7 @@
     <Compile Include="CoordinatesAround\BelowCoordinates.cs" />
     <Compile Include="Coordinates.cs" />
     <Compile Include="CoordinatesAround\BelowLeftCoordinates.cs" />
+    <Compile Include="CoordinatesAround\BelowRightCoordinates.cs" />
     <Compile Include="CoordinatesFactory.cs" />
     <Compile Include="CoordinatesAround\ICoordinatesAround.cs" />
     <Compile Include="ICoordinatesFactory.cs" />

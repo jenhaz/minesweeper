@@ -14,6 +14,7 @@ namespace Minesweeper
                 new AboveRightCoordinates(limits),
                 new BelowCoordinates(limits),
                 new BelowLeftCoordinates(limits),
+                new BelowRightCoordinates(limits),
                 new LeftCoordinates(),
                 new RightCoordinates(limits)
             };

@@ -357,5 +357,51 @@ namespace Minesweeper.Tests
             // then
             Assert.That(mineBelowLeft, Is.False);
         }
+
+        [Test]
+        public void CoordinatesBelowAndRightOfInputIsMine()
+        {
+            // given
+            var inputCoordinates = new Coordinates
+            {
+                X = 3,
+                Y = 3
+            };
+            var mineCoordinates = new Coordinates
+            {
+                X = 4,
+                Y = 4
+            };
+
+            // when
+            _coordinatesFactory.GetCoordinatesAround(_limits).Returns(new List<ICoordinatesAround> { new BelowRightCoordinates(_limits) });
+            var mineBelowLeft = _sweep.CheckAreaForMine(inputCoordinates, mineCoordinates, _limits);
+
+            // then
+            Assert.That(mineBelowLeft, Is.True);
+        }
+
+        [Test]
+        public void CoordinatesBelowAndRightOfInputIsNotMine()
+        {
+            // given
+            var inputCoordinates = new Coordinates
+            {
+                X = 3,
+                Y = 3
+            };
+            var mineCoordinates = new Coordinates
+            {
+                X = 3,
+                Y = 4
+            };
+
+            // when
+            _coordinatesFactory.GetCoordinatesAround(_limits).Returns(new List<ICoordinatesAround> { new BelowRightCoordinates(_limits) });
+            var mineBelowLeft = _sweep.CheckAreaForMine(inputCoordinates, mineCoordinates, _limits);
+
+            // then
+            Assert.That(mineBelowLeft, Is.False);
+        }
     }
 }
