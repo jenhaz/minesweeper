@@ -76,7 +76,7 @@ namespace Minesweeper
 
         static void PrintGrid()
         {
-            Console.Write("x A B C D E F G H I J");
+            Console.Write(GenerateXAxis(Limits.X));
 
             for (var row = 1; row < Width; row++)
             {
@@ -95,7 +95,7 @@ namespace Minesweeper
 
         static void PrintGrid(IReadOnlyCollection<Coordinates> allCoordinates, int[,] grid)
         {
-            Console.Write("x A B C D E F G H I J");
+            Console.Write(GenerateXAxis(Limits.X));
 
             for (var row = 1; row < Height; row++)
             {
@@ -190,6 +190,17 @@ namespace Minesweeper
             }
 
             return output;
+        }
+
+        private static string GenerateXAxis(int xLimit)
+        {
+            var xAxis = string.Empty;
+
+            for (var i = 0; i < xLimit - 1; i++)
+            {
+                xAxis += $"{Convert.ToChar(i + 65).ToString()} ";
+            }
+            return $"x {xAxis}";
         }
     }
 }
