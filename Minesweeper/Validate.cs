@@ -4,31 +4,40 @@ namespace Minesweeper
 {
     public class Validate
     {
+        private readonly Coordinates _coordinates;
+        private readonly Limits _limits;
+
+        public Validate(
+            Coordinates coordinates, 
+            Limits limits)
+        {
+            _coordinates = coordinates;
+            _limits = limits;
+        }
+
+        public bool IsValid(string input)
+        {
+            return !string.IsNullOrEmpty(input) &&
+                   InputIsValid(input) &&
+                   InputIsWithinRange(input, _limits) &&
+                   _coordinates.Get(input) != null;
+        }
+
         public bool InputIsValid(string input)
         {
             var coordinates = input.Split('#').Last();
 
-            if (coordinates.Any(c => !char.IsLetterOrDigit(c)))
-            {
-                return false;
-            }
-
-            return true;
+            return coordinates.All(char.IsLetterOrDigit);
         }
 
         public bool InputIsWithinRange(string input, Limits limits)
         {
-            var coordinates = new Coordinates().Get(input);
+            var coordinates = _coordinates.Get(input);
 
-            if (coordinates?.X <= 0 || 
-                coordinates?.Y <= 0 || 
-                coordinates?.X >= limits.X || 
-                coordinates?.Y >= limits.Y)
-            {
-                return false;
-            }
-
-            return true;
+            return !(coordinates?.X <= 0) 
+                   && !(coordinates?.Y <= 0) 
+                   && !(coordinates?.X >= limits.X) 
+                   && !(coordinates?.Y >= limits.Y);
         }
     }
 }

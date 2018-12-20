@@ -1,15 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Minesweeper.CoordinatesAround;
 
 namespace Minesweeper
 {
     public class Sweep
     {
-        private readonly ICoordinatesFactory _coordinatesFactory;
+        private readonly ICoordinatesAroundFactory _coordinatesAroundFactory;
 
-        public Sweep(ICoordinatesFactory coordinatesFactory)
+        public Sweep(ICoordinatesAroundFactory coordinatesAroundFactory)
         {
-            _coordinatesFactory = coordinatesFactory;
+            _coordinatesAroundFactory = coordinatesAroundFactory;
         }
 
         public bool IsMine(Coordinates input, IEnumerable<Coordinates> mines)
@@ -21,7 +22,7 @@ namespace Minesweeper
             Coordinates input,
             Limits limits)
         {
-            return _coordinatesFactory.GetCoordinatesAround(limits)
+            return _coordinatesAroundFactory.GetCoordinatesAround(limits)
                 .Select(direction => direction.Get(input))
                 .ToList();
         }
@@ -32,7 +33,7 @@ namespace Minesweeper
             Limits limits)
         {
             return mines.Any(mine => 
-                _coordinatesFactory.GetCoordinatesAround(limits)
+                _coordinatesAroundFactory.GetCoordinatesAround(limits)
                 .Select(direction => direction.Check(input, mine))
                 .Any(isMine => isMine));
         }

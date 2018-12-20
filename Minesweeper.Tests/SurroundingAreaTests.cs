@@ -10,14 +10,14 @@ namespace Minesweeper.Tests
     {
         private Sweep _sweep;
         private Limits _limits;
-        private ICoordinatesFactory _coordinatesFactory;
+        private ICoordinatesAroundFactory _coordinatesAroundFactory;
 
         [SetUp]
         public void SetUp()
         {
-            _coordinatesFactory = Substitute.For<ICoordinatesFactory>();
+            _coordinatesAroundFactory = Substitute.For<ICoordinatesAroundFactory>();
             _limits = new Limits { X = 11, Y = 12 };
-            _sweep = new Sweep(_coordinatesFactory);
+            _sweep = new Sweep(_coordinatesAroundFactory);
         }
 
         [TestCase(3, 2)]
@@ -37,7 +37,7 @@ namespace Minesweeper.Tests
             };
 
             // when
-            _coordinatesFactory.GetCoordinatesAround(_limits).Returns(new List<ICoordinatesAround> { new AboveCoordinates() });
+            _coordinatesAroundFactory.GetCoordinatesAround(_limits).Returns(new List<ICoordinatesAround> { new AboveCoordinates() });
             var mineAbove = _sweep.CheckAreaForMine(inputCoordinates, mineCoordinates, _limits);
 
             // then
@@ -61,7 +61,7 @@ namespace Minesweeper.Tests
             };
 
             // when
-            _coordinatesFactory.GetCoordinatesAround(_limits).Returns(new List<ICoordinatesAround> { new AboveCoordinates() });
+            _coordinatesAroundFactory.GetCoordinatesAround(_limits).Returns(new List<ICoordinatesAround> { new AboveCoordinates() });
             var mineAbove = _sweep.CheckAreaForMine(inputCoordinates, mineCoordinates, _limits);
 
             // then
@@ -85,7 +85,7 @@ namespace Minesweeper.Tests
             };
 
             // when
-            _coordinatesFactory.GetCoordinatesAround(_limits).Returns(new List<ICoordinatesAround> { new BelowCoordinates(_limits) });
+            _coordinatesAroundFactory.GetCoordinatesAround(_limits).Returns(new List<ICoordinatesAround> { new BelowCoordinates(_limits) });
             var mineBelow = _sweep.CheckAreaForMine(inputCoordinates, mineCoordinates, _limits);
 
             // then
@@ -109,7 +109,7 @@ namespace Minesweeper.Tests
             };
 
             // when
-            _coordinatesFactory.GetCoordinatesAround(_limits).Returns(new List<ICoordinatesAround> { new BelowCoordinates(_limits) });
+            _coordinatesAroundFactory.GetCoordinatesAround(_limits).Returns(new List<ICoordinatesAround> { new BelowCoordinates(_limits) });
             var mineBelow = _sweep.CheckAreaForMine(inputCoordinates, mineCoordinates, _limits);
 
             // then
@@ -133,7 +133,7 @@ namespace Minesweeper.Tests
             };
 
             // when
-            _coordinatesFactory.GetCoordinatesAround(_limits).Returns(new List<ICoordinatesAround> { new LeftCoordinates() });
+            _coordinatesAroundFactory.GetCoordinatesAround(_limits).Returns(new List<ICoordinatesAround> { new LeftCoordinates() });
             var mineLeft = _sweep.CheckAreaForMine(inputCoordinates, mineCoordinates, _limits);
 
             // then
@@ -157,7 +157,7 @@ namespace Minesweeper.Tests
             };
 
             // when
-            _coordinatesFactory.GetCoordinatesAround(_limits).Returns(new List<ICoordinatesAround> { new LeftCoordinates() });
+            _coordinatesAroundFactory.GetCoordinatesAround(_limits).Returns(new List<ICoordinatesAround> { new LeftCoordinates() });
             var mineLeft = _sweep.CheckAreaForMine(inputCoordinates, mineCoordinates, _limits);
 
             // then
@@ -181,7 +181,7 @@ namespace Minesweeper.Tests
             };
 
             // when
-            _coordinatesFactory.GetCoordinatesAround(_limits).Returns(new List<ICoordinatesAround> { new RightCoordinates(_limits) });
+            _coordinatesAroundFactory.GetCoordinatesAround(_limits).Returns(new List<ICoordinatesAround> { new RightCoordinates(_limits) });
             var mineRight = _sweep.CheckAreaForMine(inputCoordinates, mineCoordinates, _limits);
 
             // then
@@ -205,7 +205,7 @@ namespace Minesweeper.Tests
             };
 
             // when
-            _coordinatesFactory.GetCoordinatesAround(_limits).Returns(new List<ICoordinatesAround> { new RightCoordinates(_limits) });
+            _coordinatesAroundFactory.GetCoordinatesAround(_limits).Returns(new List<ICoordinatesAround> { new RightCoordinates(_limits) });
             var mineRight = _sweep.CheckAreaForMine(inputCoordinates, mineCoordinates, _limits);
 
             // then
@@ -227,7 +227,7 @@ namespace Minesweeper.Tests
             };
 
             // when
-            _coordinatesFactory.GetCoordinatesAround(_limits).Returns(new List<ICoordinatesAround> { new AboveRightCoordinates(_limits) });
+            _coordinatesAroundFactory.GetCoordinatesAround(_limits).Returns(new List<ICoordinatesAround> { new AboveRightCoordinates(_limits) });
             var mineAboveRight = _sweep.CheckAreaForMine(inputCoordinates, mineCoordinates, _limits);
 
             // then
@@ -249,7 +249,7 @@ namespace Minesweeper.Tests
             };
 
             // when
-            _coordinatesFactory.GetCoordinatesAround(_limits).Returns(new List<ICoordinatesAround> { new AboveRightCoordinates(_limits) });
+            _coordinatesAroundFactory.GetCoordinatesAround(_limits).Returns(new List<ICoordinatesAround> { new AboveRightCoordinates(_limits) });
             var mineAboveRight = _sweep.CheckAreaForMine(inputCoordinates, mineCoordinates, _limits);
 
             // then
@@ -271,7 +271,7 @@ namespace Minesweeper.Tests
             };
 
             // when
-            _coordinatesFactory.GetCoordinatesAround(_limits).Returns(new List<ICoordinatesAround> { new AboveLeftCoordinates() });
+            _coordinatesAroundFactory.GetCoordinatesAround(_limits).Returns(new List<ICoordinatesAround> { new AboveLeftCoordinates() });
             var mineAboveLeft = _sweep.CheckAreaForMine(inputCoordinates, mineCoordinates, _limits);
 
             // then
@@ -293,7 +293,7 @@ namespace Minesweeper.Tests
             };
 
             // when
-            _coordinatesFactory.GetCoordinatesAround(_limits).Returns(new List<ICoordinatesAround> { new AboveLeftCoordinates() });
+            _coordinatesAroundFactory.GetCoordinatesAround(_limits).Returns(new List<ICoordinatesAround> { new AboveLeftCoordinates() });
             var mineAboveLeft = _sweep.CheckAreaForMine(inputCoordinates, mineCoordinates, _limits);
 
             // then
@@ -315,7 +315,7 @@ namespace Minesweeper.Tests
             };
 
             // when
-            _coordinatesFactory.GetCoordinatesAround(_limits).Returns(new List<ICoordinatesAround> { new BelowLeftCoordinates(_limits) });
+            _coordinatesAroundFactory.GetCoordinatesAround(_limits).Returns(new List<ICoordinatesAround> { new BelowLeftCoordinates(_limits) });
             var mineBelowLeft = _sweep.CheckAreaForMine(inputCoordinates, mineCoordinates, _limits);
 
             // then
@@ -337,7 +337,7 @@ namespace Minesweeper.Tests
             };
 
             // when
-            _coordinatesFactory.GetCoordinatesAround(_limits).Returns(new List<ICoordinatesAround> { new BelowLeftCoordinates(_limits) });
+            _coordinatesAroundFactory.GetCoordinatesAround(_limits).Returns(new List<ICoordinatesAround> { new BelowLeftCoordinates(_limits) });
             var mineBelowLeft = _sweep.CheckAreaForMine(inputCoordinates, mineCoordinates, _limits);
 
             // then
@@ -359,7 +359,7 @@ namespace Minesweeper.Tests
             };
 
             // when
-            _coordinatesFactory.GetCoordinatesAround(_limits).Returns(new List<ICoordinatesAround> { new BelowRightCoordinates(_limits) });
+            _coordinatesAroundFactory.GetCoordinatesAround(_limits).Returns(new List<ICoordinatesAround> { new BelowRightCoordinates(_limits) });
             var mineBelowLeft = _sweep.CheckAreaForMine(inputCoordinates, mineCoordinates, _limits);
 
             // then
@@ -381,7 +381,7 @@ namespace Minesweeper.Tests
             };
 
             // when
-            _coordinatesFactory.GetCoordinatesAround(_limits).Returns(new List<ICoordinatesAround> { new BelowRightCoordinates(_limits) });
+            _coordinatesAroundFactory.GetCoordinatesAround(_limits).Returns(new List<ICoordinatesAround> { new BelowRightCoordinates(_limits) });
             var mineBelowLeft = _sweep.CheckAreaForMine(inputCoordinates, mineCoordinates, _limits);
 
             // then

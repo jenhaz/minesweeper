@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Minesweeper.CoordinatesAround;
 using NSubstitute;
 using NUnit.Framework;
 
@@ -12,16 +13,16 @@ namespace Minesweeper.Tests
         private Limits _limits;
         private Coordinates _coordinates;
         private Sweep _sweep;
-        private ICoordinatesFactory _coordinatesFactory;
+        private ICoordinatesAroundFactory _coordinatesAroundFactory;
 
         [SetUp]
         public void SetUp()
         {
-            _coordinatesFactory = Substitute.For<ICoordinatesFactory>();
+            _coordinatesAroundFactory = Substitute.For<ICoordinatesAroundFactory>();
             _coordinates = new Coordinates();
             _limits = new Limits { X = 11, Y = 12 };
-            _sweep = new Sweep(_coordinatesFactory);
-            _validate = new Validate();
+            _sweep = new Sweep(_coordinatesAroundFactory);
+            _validate = new Validate(_coordinates, _limits);
         }
 
         [TestCase("Field #A1", 1, 1)]

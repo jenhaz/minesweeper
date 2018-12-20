@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
-using Minesweeper.CoordinatesAround;
 
-namespace Minesweeper
+namespace Minesweeper.CoordinatesAround
 {
-    public interface ICoordinatesFactory
+    public interface ICoordinatesAroundFactory
     {
         IEnumerable<ICoordinatesAround> GetCoordinatesAround(Limits limits);
     }
