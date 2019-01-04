@@ -15,7 +15,7 @@ namespace Minesweeper
             int height, 
             int width, 
             Limits limits,
-            Sweep sweep,
+            Sweep sweep, 
             IEnumerable<Coordinates> mines)
         {
             _height = height;
@@ -101,7 +101,7 @@ namespace Minesweeper
         {
             int output;
 
-            if (_sweep.IsMine(coordinates, _mines))
+            if (new Mine().IsMine(coordinates, _mines))
             {
                 output = 9;
             }

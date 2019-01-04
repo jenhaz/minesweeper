@@ -28,7 +28,7 @@
 
             aboveLeftCoordinates.Y = rowAbove;
 
-            return IsMine(aboveLeftCoordinates, mine);
+            return new Mine().IsMine(aboveLeftCoordinates, mine);
         }
 
         public Coordinates Get(Coordinates input)
@@ -38,11 +38,6 @@
                 X = input.X - 1 != 0 ? input.X - 1 : 0,
                 Y = input.Y - 1 != 0 ? input.Y - 1 : 0
             };
-        }
-
-        private bool IsMine(Coordinates input, Coordinates mine)
-        {
-            return input.X == mine.X && input.Y == mine.Y;
         }
     }
 }

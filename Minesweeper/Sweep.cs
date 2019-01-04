@@ -13,11 +13,6 @@ namespace Minesweeper
             _coordinatesAroundFactory = coordinatesAroundFactory;
         }
 
-        public bool IsMine(Coordinates input, IEnumerable<Coordinates> mines)
-        {
-            return mines.Any(mine => input.X == mine.X && input.Y == mine.Y);
-        }
-
         public IEnumerable<Coordinates> GetCoordinatesAroundInput(
             Coordinates input,
             Limits limits)

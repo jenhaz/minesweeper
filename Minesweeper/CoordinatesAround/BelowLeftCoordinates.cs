@@ -31,7 +31,7 @@
 
             belowLeftCoordinates.X = columnLeft;
 
-            return IsMine(belowLeftCoordinates, mine);
+            return new Mine().IsMine(belowLeftCoordinates, mine);
         }
 
         public Coordinates Get(Coordinates input)
@@ -41,11 +41,6 @@
                 X = input.X - 1 != 0 ? input.X - 1 : 0,
                 Y = input.Y + 1 != _limits.Y ? input.Y + 1 : input.Y
             };
-        }
-
-        private bool IsMine(Coordinates input, Coordinates mine)
-        {
-            return input.X == mine.X && input.Y == mine.Y;
         }
     }
 }

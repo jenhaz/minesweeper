@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Minesweeper.CoordinatesAround;
-using NSubstitute;
 using NUnit.Framework;
 
 namespace Minesweeper.Tests
@@ -12,16 +10,14 @@ namespace Minesweeper.Tests
         private Validate _validate;
         private Limits _limits;
         private Coordinates _coordinates;
-        private Sweep _sweep;
-        private ICoordinatesAroundFactory _coordinatesAroundFactory;
+        private Mine _mine;
 
         [SetUp]
         public void SetUp()
         {
-            _coordinatesAroundFactory = Substitute.For<ICoordinatesAroundFactory>();
             _coordinates = new Coordinates();
             _limits = new Limits { X = 11, Y = 12 };
-            _sweep = new Sweep(_coordinatesAroundFactory);
+            _mine = new Mine();
             _validate = new Validate(_coordinates, _limits);
         }
 
@@ -55,7 +51,7 @@ namespace Minesweeper.Tests
             // when
             var inputCoordinates = _coordinates.Get(input);
             var isValid = _validate.InputIsValid(input);
-            var isMine = _sweep.IsMine(inputCoordinates, mines);
+            var isMine = _mine.IsMine(inputCoordinates, mines);
 
             // then
             Assert.That(isValid, Is.True);
@@ -74,7 +70,7 @@ namespace Minesweeper.Tests
             // when
             var inputCoordinates = _coordinates.Get(input);
             var isValid = _validate.InputIsValid(input);
-            var isMine = _sweep.IsMine(inputCoordinates, mines);
+            var isMine = _mine.IsMine(inputCoordinates, mines);
 
             // then
             Assert.That(isValid, Is.True);
@@ -170,7 +166,7 @@ namespace Minesweeper.Tests
             };
 
             // when
-            var mines = new Mine().GenerateMines(limits, 1);
+            var mines = _mine.Generate(limits, 1);
 
             // then
             Assert.That(mines.First().X, Is.Not.EqualTo(limits.X));

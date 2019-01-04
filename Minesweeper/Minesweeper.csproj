@@ -50,7 +50,7 @@
     <Compile Include="Coordinates.cs" />
     <Compile Include="CoordinatesAround\BelowLeftCoordinates.cs" />
     <Compile Include="CoordinatesAround\BelowRightCoordinates.cs" />
-    <Compile Include="CoordinatesAround\CoordinatesAroundAroundFactory.cs" />
+    <Compile Include="CoordinatesAround\CoordinatesAroundFactory.cs" />
     <Compile Include="CoordinatesAround\ICoordinatesAround.cs" />
     <Compile Include="Grid.cs" />
     <Compile Include="CoordinatesAround\ICoordinatesAroundFactory.cs" />

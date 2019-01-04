@@ -37,7 +37,7 @@ namespace Minesweeper
             return null;
         }
         
-        private Coordinates Convert(char xCoordinate, int yCoordinate)
+        private static Coordinates Convert(char xCoordinate, int yCoordinate)
         {
             return new Coordinates
             {

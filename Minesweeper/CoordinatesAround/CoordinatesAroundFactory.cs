@@ -2,7 +2,7 @@
 
 namespace Minesweeper.CoordinatesAround
 {
-    public class CoordinatesAroundAroundFactory : ICoordinatesAroundFactory
+    public class CoordinatesAroundFactory : ICoordinatesAroundFactory
     {
         public IEnumerable<ICoordinatesAround> GetCoordinatesAround(Limits limits)
         {

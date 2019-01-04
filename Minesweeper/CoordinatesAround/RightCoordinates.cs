@@ -26,7 +26,7 @@
                 Y = input.Y
             };
 
-            return IsMine(rightCoordinates, mine);
+            return new Mine().IsMine(rightCoordinates, mine);
         }
 
         public Coordinates Get(Coordinates input)
@@ -36,11 +36,6 @@
                 X = input.X + 1 != _limits.X ? input.X + 1 : input.X,
                 Y = input.Y
             };
-        }
-
-        private bool IsMine(Coordinates input, Coordinates mine)
-        {
-            return input.X == mine.X && input.Y == mine.Y;
         }
     }
 }

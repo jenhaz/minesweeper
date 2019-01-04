@@ -7,7 +7,7 @@ namespace Minesweeper
     public class Program
     {
         private static readonly Grid Grid;
-        private static readonly Sweep Sweep;
+        private static readonly Mine Mine;
         private static readonly Validate Validate;
         private static readonly Coordinates Coordinates;
         private static readonly List<Coordinates> PreviousGuesses;
@@ -24,14 +24,16 @@ namespace Minesweeper
             const int width = 11;
             const int numberOfMines = 2;
 
-            Sweep = new Sweep(new CoordinatesAroundAroundFactory());
+            Mine = new Mine();
             Coordinates = new Coordinates();
             PreviousGuesses = new List<Coordinates>();
 
             Limits = new Limits { X = width, Y = height };
             Validate = new Validate(Coordinates, Limits);
-            Mines = new Mine().GenerateMines(Limits, numberOfMines);
-            Grid = new Grid(height, width, Limits, Sweep, Mines);
+            Mines = Mine.Generate(Limits, numberOfMines);
+
+            var sweep = new Sweep(new CoordinatesAroundFactory());
+            Grid = new Grid(height, width, Limits, sweep, Mines);
 
             _isAlive = true;
             _inputIsValid = true;
@@ -56,7 +58,7 @@ namespace Minesweeper
                 }
 
                 var coords = Coordinates.Get(input);
-                var isMine = Sweep.IsMine(coords, Mines);
+                var isMine = Mine.IsMine(coords, Mines);
 
                 if (isMine)
                 {
